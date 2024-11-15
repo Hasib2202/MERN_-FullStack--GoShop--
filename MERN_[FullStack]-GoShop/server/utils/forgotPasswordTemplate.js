@@ -9,8 +9,8 @@ const forgotPasswordTemplate = ({ name, otp })=>{
     <p>This otp is valid for 1 hour only. Enter this otp in the binkeyit website to proceed with resetting your password.</p>
     <br/>
     </br>
-    <p>Thanks</p>
-    <p>Binkeyit</p>
+    <p>Thanks,</p>
+    <p>The GoShop Team</p>
 </div>
     `
 }

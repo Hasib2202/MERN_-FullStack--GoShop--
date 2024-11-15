@@ -36,7 +36,7 @@ const verifyEmailTemplate = ({ name, url }) => {
             </a>
           </div>
           <p style="color: #666666;">If you didn't create an account, you can safely ignore this email.</p>
-          <p style="color: #666666;">Best regards,<br>The GoShop Team</p>
+          <p style="color: #666666;">Best regards,<br>The GoShop Team.</p>
         </div>
       </body>
     </html>
