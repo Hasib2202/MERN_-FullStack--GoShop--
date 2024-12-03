@@ -9,7 +9,19 @@ const SummaryApi = {
     login : {
         url : `/api/user/login`,
         method : 'post'
-    }
+    },
+    forgot_Password : {
+        url : `/api/user/forgot-password`,
+        method : 'put'
+    },
+    forgot_password_otp_verification :{
+        url : `/api/user/verify-forgot-password-otp`,
+        method : 'put'
+    },
+    resetPassword : {
+        url : `/api/user/reset-password`,
+        method : 'put'
+    },
 }
 
 export default SummaryApi;

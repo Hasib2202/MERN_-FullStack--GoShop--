@@ -7,13 +7,11 @@ import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToasterError";
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const ForgotPassword = () => {
   const [data, setData] = useState({
     email: "",
-    password: "",
   });
 
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -26,6 +24,7 @@ const Login = () => {
       };
     });
   };
+  
   const valideValue = Object.values(data).every((el) => el);
 
   const handleSubmit = async (e) => {
@@ -35,7 +34,7 @@ const Login = () => {
 
     try {
       const response = await Axios({
-        ...SummaryApi.login,
+        ...SummaryApi.forgot_Password,
         data: data,
       });
 
@@ -45,11 +44,14 @@ const Login = () => {
 
       if (response.data.success) {
         toast.success(response.data.message);
+        navigate("/verifacation-otp",{
+            state : data
+        });
+        
         setData({
           email: "",
-          password: "",
         });
-        navigate("/");
+        
       }
     } catch (error) {
       AxiosToastError(error);
@@ -59,7 +61,9 @@ const Login = () => {
   return (
     <section className="container w-full px-2 mx-auto rounded-md">
       <div className="w-full max-w-lg mx-auto my-4 bg-white rounded p-7">
-        <form action="" className="grid gap-4 py-4" onSubmit={handleSubmit}>
+       
+       <p className="text-lg font-semibold ">Forgot-password</p>
+       <form action="" className="grid gap-4 py-4" onSubmit={handleSubmit}>
           <div className="grid gap-1">
             <label htmlFor="email">Email :</label>
             <input
@@ -73,47 +77,23 @@ const Login = () => {
             />
           </div>
 
-          <div className="grid gap-1">
-            <label htmlFor="password">Password :</label>
-            <div className="flex items-center p-2 border rounded bg-blue-50 focus-within:border-primary-200">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                className="w-full outline-none "
-                name="password"
-                value={data.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-              />
-              <div
-                onClick={() => setShowPassword((preve) => !preve)}
-                className="cursor-pointer"
-              >
-                {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
-              </div>
-            </div>
-            <Link to={"/forgot-password"} className='block my-1 ml-auto hover:text-primary-200'>Forgot password ?</Link>
-          </div>
-
-          
-
           <button
             disabled={!valideValue}
             className={` ${
               valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500"
             }    text-white py-2 rounded font-semibold my-3 tracking-wide`}
           >
-            Login
+            Send Otp
           </button>
         </form>
 
         <p>
-          Don't have account?
+          Already have account?
           <Link
-            to={"/register"}
+            to={"/login"}
             className="font-semibold text-green-700 hover:text-green-800"
           >
-             Register
+             Login
           </Link>
         </p>
       </div>
@@ -121,4 +101,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
