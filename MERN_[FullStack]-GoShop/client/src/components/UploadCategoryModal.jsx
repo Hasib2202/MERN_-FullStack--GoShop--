@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { IoClose } from "react-icons/io5";
+import uploadImage from '../utils/UploadImage';
 const UploadCategoryModal = ({close}) => {
     const [data,setdata] = useState(
         {
@@ -21,20 +22,23 @@ const UploadCategoryModal = ({close}) => {
         e.preventDefault()
     }
 
-    const handleUploadCategory = (e) => {
+    const handleUploadCategoryImage = async(e) => {
         const file = e.target.files[0]
-        if(file){
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                setdata((prev) => {
-                    return {
-                        ...prev,
-                        image: e.target.result
-                    }
-                })
-            }
-            reader.readAsDataURL(file)
+        if(!file){
+           return
         }
+        
+        const response = await uploadImage(file);
+        const { data : ImageResponse } = response
+
+        setdata((preve)=>{
+            return {
+                ...preve,
+                image: ImageResponse.data.url
+            }
+        })
+
+        
     }
   return (
     <section className='top-0 bottom-0 left-0 right-0 flex items-center justify-center p-4 flexed bg-neutral-800 bg-opacity-60'>
@@ -62,23 +66,36 @@ const UploadCategoryModal = ({close}) => {
                     <p>Image</p>
                     <div className='flex flex-col items-center gap-4 lg:flex-row'>
                         <div className='flex items-center justify-center w-full border rounded bg-blue-50 h-36 lg:w-36'>
-                            <p className='text-sm text-neutral-500'>No Image</p>
+                            {
+                                data.image ? (
+                                    <img  
+                                        alt="category" 
+                                        src={data.image}
+                                        className='object-scale-down w-full h-full'
+                                    />
+                                ) : (
+                                    <p className='text-sm text-neutral-500'>No Image</p>
+                                    
+                                )
+                            }
                         </div>
                         <label htmlFor="uplodaCategoryImage">
-                            <div disabled={!data.name} className={`
+                            <div className={`
                             ${!data.name ? 'bg-gray-400 ' : 'bg-primary-200 '}
                             px-4 py-2 rounded cursor-pointer
                             `}>Upload Image</div>
                             <input 
+                               disabled={!data.name}
                                type="file" 
                                name="" 
                                id="uplodaCategoryImage" 
                                className='hidden'
-                               onChange={handleUploadCategory}
+                               onChange={handleUploadCategoryImage }
                             />
                         </label>
                     </div>
                 </div>
+                <button>Add Category</button>
             </form>
         </div>
     </section>
