@@ -7,14 +7,14 @@ const Dashboard = () => {
     <section className='bg-white'>
       <div className='container grid px-3 mx-auto lg:grid-cols-[250px,1fr]'>
         {/* {left part} */}
-        <div className='sticky hidden py-4 overflow-y-auto top-24 lg:block'>
+        <div className='sticky hidden py-4 overflow-y-auto border-r top-24 lg:block '>
           <UserMenu />
         </div>
           
 
 
         {/* {right part} */}
-        <div className='p-4 bg-white'>
+        <div className='bg-white min-h-[75vh]'>
           <Outlet />
         </div>
       </div>
