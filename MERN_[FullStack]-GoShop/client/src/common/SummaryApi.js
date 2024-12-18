@@ -45,7 +45,11 @@ const SummaryApi = {
     uploadImage : {
         url : `/api/file/upload`,
         method : 'post'
-    }
+    },
+    getCategorie : {
+        url : `/api/category/get`,
+        method : 'get'
+    },
 }
 
 export default SummaryApi;

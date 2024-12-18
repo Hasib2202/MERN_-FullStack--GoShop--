@@ -1,25 +1,24 @@
-import uploadImageClodinary from "../utils/uploadImageClodinary.js";
+import uploadImageClodinary from "../utils/uploadImageClodinary.js"
 
-const uploadImageController = async(request,response) => {
+const uploadImageController = async(request,response)=>{
     try {
-        const file = request.file;
+        const file = request.file
 
-        const uploadImage = await uploadImageClodinary(file);
+        const uploadImage = await uploadImageClodinary(file)
 
         return response.json({
-            message : "Image uploaded successfully",
+            message : "Upload done",
+            data : uploadImage,
             success : true,
-            error : false,
-            data : uploadImage
+            error : false
         })
-
     } catch (error) {
         return response.status(500).json({
             message : error.message || error,
-            success : false,
-            error : true
+            error : true,
+            success : false
         })
     }
-};
+}
 
-export default uploadImageController;
+export default uploadImageController
